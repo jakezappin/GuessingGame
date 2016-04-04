@@ -3,6 +3,10 @@
 <head>
 	<title>Jake's Guessing Game</title>
 	<link rel="stylesheet" type="text/css" href="game.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="game.js"></script>
 </head>
 <body>
 
@@ -28,7 +32,7 @@
 		<br>
 
 		<form>
-  			<input type="text" name="playerguess"><br><br>
+  			<input id="guess" type="text" name="playerguess"><br><br>
   			<input id="submitbutton" type="submit" value="Submit Your Guess!"><br>
 		</form>
 
@@ -49,9 +53,10 @@
 
 		<br>
 
-		<p>You have 5 guesses remaining</p>
+		<p id="info">You have 5 guesses remaining</p>
 
 	</div>
+
 
 </body>
 </html>
