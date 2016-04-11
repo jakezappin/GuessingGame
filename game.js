@@ -28,14 +28,10 @@ function checkWin(){
 		alert("You won!");
 	} else if (playerGuess > winningNumber){
 
-		console.log(winningNumber);
-
 		var elem = document.getElementById("info");
 		elem.innerHTML = "You guessed too high! You have " + numGuessesLeft + " guesses left!";
 
 	} else {
-
-		console.log(winningNumber);
 
 		var elem = document.getElementById("info");
 		elem.innerHTML = "You guessed too low! You have " + numGuessesLeft + " guesses left!";
@@ -55,14 +51,12 @@ function playAgain(){
 	elem.innerHTML = "Let's play!  You have " + numGuessesLeft + " guesses left!";
 
 	var elem2 = document.getElementById("hintdisplay");
-	elem.innerHTML = " ";
+	elem2.innerHTML = " ";
 }
 
 function displayHint(){
 
 	if(hintDisplay === false){
-
-		console.log("hi");
 
 		var hint1 = Math.floor((Math.random() * 100) + 1);
 		var hint2 = Math.floor((Math.random() * 100) + 1);
@@ -88,5 +82,11 @@ function displayHint(){
 $('#submitbutton').on('click',playerSubmitGuess);
 $('#playagainbutton').on('click', playAgain);
 $('#hintbutton').on('click', displayHint)
+$('#guess').on('keypress',function(){
+	if(event.keyCode === 13){
+		event.preventDefault();
+		playerSubmitGuess();
+	}
+});
 
 });
