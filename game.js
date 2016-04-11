@@ -1,12 +1,15 @@
 $(document).ready(function(){
 
-var winningNumber = generateWinningNumber();
+var winningNumber; 
 var playerGuess;
 var numGuessesLeft = 5;
-	
+var hintDisplay = false;
+
+winningNumber = generateWinningNumber();
 
 function generateWinningNumber(){
-	winningNumber = Math.floor((Math.random() * 100) + 1);
+	random = Math.floor((Math.random() * 100) + 1);
+	return random;
 }
 
 function playerSubmitGuess(){
@@ -16,30 +19,74 @@ function playerSubmitGuess(){
 		numGuessesLeft--;
 		checkWin();
 	} else {
-		alert("You Are Out Of Guesses!")
+		alert("You Are Out of Guesses!")
 	}
 }
 
 function checkWin(){
 	if(playerGuess === winningNumber){
 		alert("You won!");
-	} else if (playerGuess < winningNumber){
+	} else if (playerGuess > winningNumber){
 
+		console.log(winningNumber);
 
 		var elem = document.getElementById("info");
-		elem.innerHTML = "You guessed too high! /n You have " + numGuessesLeft + " left!";
+		elem.innerHTML = "You guessed too high! You have " + numGuessesLeft + " guesses left!";
 
 	} else {
 
+		console.log(winningNumber);
 
 		var elem = document.getElementById("info");
-		elem.innerHTML = "You guessed too low! /n You have " + numGuessesLeft + " left!";
+		elem.innerHTML = "You guessed too low! You have " + numGuessesLeft + " guesses left!";
 
 	}
 }
 
+function playAgain(){
+	numGuessesLeft = 5;
+	winningNumber = generateWinningNumber();
+	hintDisplay = false;
+
+	$("input").val('');
+	$("input").attr("placeholder", "1-100");
+
+	var elem = document.getElementById("info");
+	elem.innerHTML = "Let's play!  You have " + numGuessesLeft + " guesses left!";
+
+	var elem2 = document.getElementById("hintdisplay");
+	elem.innerHTML = " ";
+}
+
+function displayHint(){
+
+	if(hintDisplay === false){
+
+		console.log("hi");
+
+		var hint1 = Math.floor((Math.random() * 100) + 1);
+		var hint2 = Math.floor((Math.random() * 100) + 1);
+		var hints = [];
+
+		hints.push(winningNumber);
+		hints.push(hint1);
+		hints.push(hint2);
+
+		hints.sort();
+
+		var node = document.querySelector("#hintdisplay");
+		var hintStr = "One of these values is the winning number: " + hints[0] + ", " + hints[1] + ", " + hints[2] + ".";
+
+		node.innerHTML = hintStr;
+
+		hintDisplay = true;
+	}
+
+}
 
 
 $('#submitbutton').on('click',playerSubmitGuess);
+$('#playagainbutton').on('click', playAgain);
+$('#hintbutton').on('click', displayHint)
 
 });
